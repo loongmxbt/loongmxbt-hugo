@@ -1,9 +1,9 @@
 +++
 date = "2015-03-04T11:21:04+08:00"
-draft = true
+draft = false
 title = "使用 Hugo 搭建 Github 静态博客"
 tags = ["Hugo", "Go", "Github", "静态博客"]
-categories = ["WebDev"]
+categories = ["Web"]
 +++
 
 ### Github 静态博客是啥
@@ -50,6 +50,12 @@ $ git clone URL_TO_THEME
 ```
 $ hugo server --theme=hyde --buildDrafts
 ```
+或者
+```
+$ hugo server -t nofancy
+```
+
+注意，默认创建的文章页面有 `draft=true` 选项，设置为 false 才可以不通过 `--buildDrafts` 选项生成。
 
 
 ### 部署至 Github
@@ -61,17 +67,13 @@ $ hugo server --theme=hyde --buildDrafts
 
 我们将创建两个 repo，一个用来存放 Hugo 的内容，一个 git 子模块存放 `public` 的内容。
 
-1. 创建 GitHub `<your-project>-hugo` 仓库 (它将存储 Hugo 的内容)
+1. 创建 GitHub `<your-project>-hugo` 仓库 (它将存储 Hugo 的内容，注意将 `public` 目录添加至 `.gitignore` 中)
 2. 创建 GitHub `<username>.github.io` 仓库 (它将存储 `public` 文件夹: 即网站的静态版本)
 3. `git clone <<your-project>-hugo-url> && cd <your-project>-hugo`
-4. 在本地运行网站 (`hugo serve --watch -t <yourtheme>`)
+4. 在本地运行网站 (`hugo server --watch -t <yourtheme>`)
 5. 如果你对结果满意, `Ctrl+C` (kill server) and `rm -rf public` (别着急，你可以通过 `hugo -t <yourtheme>` 重新生成)
 6. `git submodule add git@github.com:<username>/<username>.github.io.git public`
 7. 基本完成: 创建 `deploy.sh` 脚本实现自动化管理 (别忘了给它可执行权限: `chmod +x deploy.sh`):
-
-
-
-
 
 
 
