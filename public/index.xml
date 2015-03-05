@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>梦溪笔谈</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on 梦溪笔谈</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>Copyright (c) 2014 - 2015, Saint Asky; all rights reserved.</copyright>
+    <lastBuildDate>Wed, 04 Mar 2015 11:21:04 +0800</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用 Hugo 搭建 Github 静态博客</title>
+      <link>http://localhost:1313/post/build-github-blog-by-Hugo/</link>
+      <pubDate>Wed, 04 Mar 2015 11:21:04 +0800</pubDate>
+      
+      <guid>http://localhost:1313/post/build-github-blog-by-Hugo/</guid>
+      <description>
+
+&lt;h3 id=&#34;github-静态博客是啥:f335be6568e4945d1f62056ad1d6d66b&#34;&gt;Github 静态博客是啥&lt;/h3&gt;
+
+&lt;p&gt;自从 Github 推出 Pages 服务以来，静态博客程序就层出不穷。所谓『静态博客』，就是所有页面均为 HTML 静态页面的博客。与常见的 Wordpress 等动态博客系统不同，它没有数据库，没有动态语言，没有复杂的后台管理。静态博客有着轻量、快捷、安全等优势，配合以 Git 版本控制系统与 Github 托管服务，使写作更为方便流畅。&lt;/p&gt;
+
+&lt;p&gt;常见的静态博客系统有 &lt;a href=&#34;https://github.com/jekyll/jekyll&#34;&gt;Jekyll&lt;/a&gt; (Ruby)，&lt;a href=&#34;https://github.com/imathis/octopress&#34;&gt;Octopress&lt;/a&gt; (Ruby)，&lt;a href=&#34;https://github.com/hexojs/hexo&#34;&gt;Hexo&lt;/a&gt; (Node.js)等，更多的系统请参见&lt;a href=&#34;http://www.chinaz.com/special/static-blog/index.html&#34;&gt;这里&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;静态博客程序通常使用 &lt;a href=&#34;http://wowubuntu.com/markdown/basic.html&#34;&gt;Markdown&lt;/a&gt; 格式编辑页面和文章，然后通过程序生成 HTML 静态页面，通过 Git 命令推送至 Github 上，由 &lt;code&gt;username.github.io&lt;/code&gt; 子域名进行访问。&lt;/p&gt;
+
+&lt;h3 id=&#34;hugo-是啥:f335be6568e4945d1f62056ad1d6d66b&#34;&gt;Hugo 是啥&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://gohugo.io/&#34;&gt;Hugo&lt;/a&gt; 是基于 Go 语言的静态博客系统。&lt;/p&gt;
+
+&lt;h3 id=&#34;安装-hugo:f335be6568e4945d1f62056ad1d6d66b&#34;&gt;安装 Hugo&lt;/h3&gt;
+
+&lt;p&gt;Mac 用户只需执行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install hugo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;搭建博客:f335be6568e4945d1f62056ad1d6d66b&#34;&gt;搭建博客&lt;/h3&gt;
+
+&lt;p&gt;在 Github 上搭建个人博客需要注意两点：&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;你必须使用 &lt;code&gt;username.github.io&lt;/code&gt; 创建 repo&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;master&lt;/code&gt; 分支下的内容将被用来搭建发布 Github Pages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;我们将创建两个 repo，一个用来存放 Hugo 的内容，一个 git 子模块存放 &lt;code&gt;public&lt;/code&gt; 的内容。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Create on GitHub &lt;code&gt;&amp;lt;your-project&amp;gt;-hugo&lt;/code&gt; repository (it will host Hugo’s content)&lt;/li&gt;
+&lt;li&gt;Create on GitHub &lt;code&gt;&amp;lt;username&amp;gt;.github.io&lt;/code&gt; repository (it will host the &lt;code&gt;public&lt;/code&gt; folder: the static website)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git clone &amp;lt;&amp;lt;your-project&amp;gt;-hugo-url&amp;gt; &amp;amp;&amp;amp; cd &amp;lt;your-project&amp;gt;-hugo&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Make your website work locally (&lt;code&gt;hugo serve --watch -t &amp;lt;yourtheme&amp;gt;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Once you are happy with the results, &lt;code&gt;Ctrl+C&lt;/code&gt; (kill server) and &lt;code&gt;rm -rf public&lt;/code&gt; (don’t worry, it can always be regenerated with &lt;code&gt;hugo -t &amp;lt;yourtheme&amp;gt;&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;git submodule add git@github.com:&amp;lt;username&amp;gt;/&amp;lt;username&amp;gt;.github.io.git public&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Almost done: add a &lt;code&gt;deploy.sh&lt;/code&gt; script to help you (and make it executable: &lt;code&gt;chmod +x deploy.sh&lt;/code&gt;):&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>关于我</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Wed, 04 Mar 2015 11:17:13 +0800</pubDate>
+      
+      <guid>http://localhost:1313/about/</guid>
+      <description>
+
+&lt;h3 id=&#34;社交网站:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;社交网站&lt;/h3&gt;
+
+&lt;p&gt;Github:&lt;/p&gt;
+
+&lt;p&gt;Twitter:&lt;/p&gt;
+
+&lt;p&gt;Facebook:&lt;/p&gt;
+
+&lt;h3 id=&#34;作品:6083a88ee3411b0d17ce02d738f69d47&#34;&gt;作品&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.elecomy.com&#34;&gt;闪云&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.eleconomy.com&#34;&gt;电力经济观察&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

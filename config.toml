@@ -1,0 +1,14 @@
+baseurl = "http://loongmxbt.github.io/"
+languageCode = "zh-cn"
+title = "梦溪笔谈"
+copyright = "Copyright (c) 2014 - 2015, Saint Asky; all rights reserved."
+
+[author]
+    name = "Saint Asky"
+    github = "loongmxbt"
+    twitter = "dragonszy"
+
+[taxonomies]
+    tag = "tags"
+    category = "categories"
+    series = "series"
