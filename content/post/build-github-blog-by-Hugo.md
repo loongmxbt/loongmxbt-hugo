@@ -3,7 +3,7 @@ date = "2015-03-04T11:21:04+08:00"
 draft = true
 title = "使用 Hugo 搭建 Github 静态博客"
 tags = ["Hugo", "Go", "Github", "静态博客"]
-categories = ["Web开发"]
+categories = ["WebDev"]
 +++
 
 ### Github 静态博客是啥
