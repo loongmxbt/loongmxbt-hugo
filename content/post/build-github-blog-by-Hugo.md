@@ -19,39 +19,39 @@ categories = ["Web"]
 
 ### 安装 Hugo
 Hugo 的安装非常简单，只要下载对应系统的可执行文件即可，点击[这里][#hugo_release]下载，下载完成后添加至 `PATH` 即可。如果你是 Mac 用户并使用 `homebrew` 只需执行如下命令：
-```
-brew install hugo
+```bash
+$ brew install hugo
 ```
 
 ### 本地搭建
 创建页面：
-```
+```bash
 $ hugo new about.md
 ```
 
 创建文章：
-```
+```bash
 $ hugo new post/first.md
 ```
 
 下载全部主题：
-```
+```bash
 $ git clone --recursive https://github.com/spf13/hugoThemes themes
 ```
 
 下载单个主题：
-```
+```bash
 $ mkdir themes
 $ cd themes
 $ git clone URL_TO_THEME
 ```
 
 运行 Hugo：
-```
+```bash
 $ hugo server --theme=hyde --buildDrafts
 ```
 或者
-```
+```bash
 $ hugo server -t nofancy
 ```
 
