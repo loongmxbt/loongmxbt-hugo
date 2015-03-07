@@ -75,6 +75,52 @@ $ hugo server -t nofancy
 6. `git submodule add git@github.com:<username>/<username>.github.io.git public`
 7. 基本完成: 创建 `deploy.sh` 脚本实现自动化管理 (别忘了给它可执行权限: `chmod +x deploy.sh`):
 
+```bash
+#!/bin/bash
+
+echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
+
+# Build the project. 
+hugo # if using a theme, replace by `hugo -t <yourtheme>`
+
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg="rebuilding site `date`"
+if [ $# -eq 1 ]
+  then msg="$1"
+fi
+git commit -m "$msg"
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+```
+
+### 增加代码高亮支持
+
+将以下代码添加至 `themes/theme-name/layouts/partials/headerer.html`
+
+```html
+<link rel="stylesheet" href="https://yandex.st/highlightjs/8.0/styles/default.min.css">
+<script src="https://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+```
+
+### 增加数学公式支持
+
+将以下代码添加至 `themes/theme-name/layouts/partials/footer.html`
+
+```html
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+```
 
 
 [#hugo]:http://gohugo.io/
