@@ -114,14 +114,57 @@ cd ..
 
 ### 增加数学公式支持
 
+[这篇文章][#mathjax]有详细的 MathJax 和 LaTeX 简介。
+
 将以下代码添加至 `themes/theme-name/layouts/partials/footer.html`
 
 ```html
 <script type="text/javascript"
   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    // Fix <code> tags after MathJax finishes running. This is a
+    // hack to overcome a shortcoming of Markdown. Discussion at
+    // https://github.com/mojombo/jekyll/issues/199
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
 ```
 
+增加相应的 css
+
+```css
+code.has-jax {
+    font: inherit;
+    font-size: 100%;
+    background: inherit;
+    border: inherit;
+    color: #515151;
+}
+```
+
+使用方法：
+
+若 Markdown 语法与 MathJax 语法冲突时，对于 inline 公式，可以在原先两个`$`之外加上两个`` ` ``代表 code。对于 display 公式，可以在原先两个`$$`之外加上`<div>`和`</div>`。这样所有的公式就可以仅执行 MathJax 解析了。
 
 [#hugo]:http://gohugo.io/
 [#jekyll]:https://github.com/jekyll/jekyll
@@ -130,3 +173,4 @@ cd ..
 [#hugo_release]:https://github.com/spf13/hugo/releases
 [#static-blog]:http://www.chinaz.com/special/static-blog/index.html
 [#markdown]:http://wowubuntu.com/markdown/basic.html
+[#mathjax]:http://mlworks.cn/posts/introduction-to-mathjax-and-latex-expression/
